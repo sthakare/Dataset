@@ -1,0 +1,132 @@
+Data Cleaning
+2
+# Column Consistency
+df.columns
+df.columns = df.columns.str.lower()
+
+# Renaming
+df.rename(columns={'full name':'full_name','date of birth':'date_of_birth'})
+
+# Rename and Replace Column Names
+df.rename(columns={'full name':'full_name','date of birth':'date_of_birth'},inplace=True)
+
+Spliting Column Into Multiple
+df.full_name.str.split(" ")
+
+# Get the First Part of the Split
+df.full_name.str.split(" ").str.get(0)
+
+#First Name(New Column)
+df['firstname'] = df.full_name.str.split(" ").str.get(0)
+
+# Last Name(New Column)
+df['lastname'] = df.full_name.str.split(" ").str.get(1)
+
+# Method 2 Using Expand 
+df1.full_name.str.split(" ",expand=True)
+	0	1	2	3
+0	Salim	Pound	None	None
+1	Madelene	Lutas	None	None
+
+# Using expand and n = 1 to group all other into one column
+df1.full_name.str.split(" ",n=1,expand=True)
+	0	1
+0	Salim	Pound
+1	Madelene	Lutas
+2	Dolli	Swanbourne
+
+
+
+Finding A String/Expression and Replace
+
+df['income.1']
+0      $46476.6380809961
+
+# Data Type of Column
+df['income.1'].dtype
+
+# Replace with Empty
+df['income.1'].str.replace("$"," ")
+0       46476.6380809961
+
+# Replace with Euro
+df['income.1'].str.replace("$","Euro")
+0      Euro46476.6380809961
+
+Finding A String/Expression
+str.contains
+.filter
+str.match
+
+df.salary
+0      19QtDp5HkyuZZqwwqzYPSSLuA7MXFCwfKL
+
+# As Boolean
+df.salary.str.contains('19')
+0       True
+
+# Get the values of entire rows
+df[df.salary.str.contains('19')]
+
+# Check For Multiple Expression
+df.salary.str.contains('19|17')
+
+# Using Match to Find An Expression
+df.salary.str.match('19')
+
+df.quote
+
+# Find the match for the word Operative
+df[df.quote.str.match('Operative')]
+
+# Finding An Index 
+df.salary.filter(regex='18',axis=0)
+18     1MHrrY7pFbXDxNa411ePxRe3vgnYs9yTFH
+118    1AwpwF96DD6Z2sys5cYr1d8Bug9in2vMyC
+
+Joining Two Columns
+# Joining  Column
+df.head()
+
+# Method1
+df.firstname + df.email
+
+# Method 1
+df.firstname +"_"+ df.email
+0                     Salim_spound0@spotify.com
+
+# Method 2
+dfall = df[['firstname','email']].apply("_".join,axis=1)
+
+Counting Strings in A Column
+str.count(' ')
+str.split().str.len()
+.map(len)
+.apply(len)
+
+# Counting Strings in A Column
+df.quote
+0                    Compatible discrete leverage
+
+# Using str.count() to count number of space
+df.quote.str.count(' ') + 1
+
+# Using str.len() to get length of words in each row of a column
+df.quote.str.split().str.len()
+
+# Using str.split().map(len) to get length of words in each row of a column
+df.quote.str.split().map(len)
+
+# Using str.split().apply(len) to get length of words in each row of a column
+df.quote.str.split().apply(len)
+
+# Get the Total Number of Counts
+df.quote.str.split().apply(len).value_counts()
+3    744
+4    209
+5     44
+6      3
+
+
+
+

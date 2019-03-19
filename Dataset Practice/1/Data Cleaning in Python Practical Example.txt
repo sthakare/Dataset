@@ -1,0 +1,93 @@
+# Solution 1
+# UTF Encoding
+df1 = pd.read_csv("unclean_data.csv",encoding='latin1')
+
+# Solution 2
+# Use Text Editor and Save it as Utf-8,ISO-8859-1,latin1
+df = pd.read_csv("unclean_data1.csv",encoding='utf8')
+
+Change the case to Upper
+df.columns.str.upper()
+
+df.columns = df.columns.str.upper()
+
+Renaming Columns
+df.rename(columns = {'DURATION':'TIME'})
+
+To check for missing data
+False means no missing data
+df.isnull().sum() int
+df.isnull().any() bool
+
+
+df.isnull()
+df.isnull().any()
+MOVIE_TITLE                  False
+NUM_CRITIC_FOR_REVIEWS       False
+
+# For entire DataFrame
+df.isnull().any().any()
+
+# Columns with NAN using Integer
+df.isnull().sum()
+MOVIE_TITLE                  0
+NUM_CRITIC_FOR_REVIEWS       0
+DURATION                     3
+
+# Total Number of Missing NA
+df.isnull().sum().sum()
+21
+
+Adding A Default Value or Filling the Missing Data
+df_with_0 = df.fillna(0)
+
+Fill it with the mean
+# Fill it with the mean
+df['DURATION'].mean()
+
+df_with_mean = df.DURATION.fillna(df['DURATION'].mean())
+
+Droping NA
+## Droping NA
+df.head()
+
+df.isnull().sum().sum()
+21
+
+df.shape
+(14,16)
+
+df_drop = df.dropna()
+df_drop.shape
+(4,16)
+
+?df.dropna()   ----help
+
+df_drop_with_condition = df.dropna(thresh=2)
+
+df_drop_column = df.dropna(axis=1)
+df_drop_column.shape
+(14,9)
+
+Dropping Duplicates
+df.duplicated()
+df.duplicated('MOVIE_TITLE')
+
+df_drop_dup = df.drop_duplicates('MOVIE_TITLE')
+df_drop_dup.shape
+(13,16)
+
+Data Types Inconsistencies
+Change datatype after reading the csv
+Change datatype before reading the csv ++ pd.read_csv(url, dtype={'column1':float})
+
+df.dtypes
+MOVIE_TITLE                   object
+NUM_CRITIC_FOR_REVIEWS         int64
+DURATION                     float64
+
+df.GROSS.dtypes
+dtype('int64')
+
+df.GROSS.astype(float).dtypes
+

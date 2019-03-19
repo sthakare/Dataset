@@ -1,0 +1,108 @@
+Most Commonly Used File Formats in Dsc
+Comma-separated values
+Tab-separated values
+XLSX
+ZIP
+Plain Text (txt)
+JSON
+XML & HTML
+Hierarchical Data Format
+DOCX
+
+Reading CSV,TSV
+Pandas
+CSV
+df = pd.read_csv("examplefile.csv")
+
+Reading A Tab Separated File
+df_tab = pd.read_table("examplefiletab.txt")
+df_tab.head()
+
+Reading Excel File
+df_excel = pd.read_excel("examplefileexcel.xlsx")
+df_excel.tail()
+
+Reading Zip File
+Zipfile
+Czipfile
+pip install czipfile
+import zipfile as zp
+archive = zp.ZipFile("examplefile.zip","r")
+df_zip = archive.read("examplefile.csv")
+df_zip
+
+Reading Txt
+txt_file = open("examplefile.txt","r")
+txt_file.read()
+
+Reading JSON¶
+JSON
+Pandas
+# pd.read_json("filejson.json")
+import json
+
+# Pandas format
+df_json = pd.read_json("myvalidjsonfile.json")
+df_json.columns
+with open("myvalidjsonfile.json","r") as jsd:
+    df_json_data = json.load(jsd)
+    print(df_json_data)
+df_json_data
+
+Reading HTML
+BeautifulSoup
+HTMLParser
+Urllib
+pandas
+
+url = 'http://www.fdic.gov/bank/individual/failed/banklist.html'
+# Pandas
+df_html = pd.read_html(url)
+df_html
+
+df_html_table = pd.read_html("examplehtml.html")
+df_html_table
+
+# Using BeautifulSoup
+import urllib.request
+import lxml
+from bs4 import BeautifulSoup
+url1 = "http://www.fdic.gov/bank/individual/failed/banklist.html"
+page = urllib.request.urlopen(url1)
+soup = BeautifulSoup(page,'lxml')
+soup.table
+
+Reading XML
+xml.etree
+import xml.etree.ElementTree as ET
+tree = ET.parse("examplefile.xml")
+baseroot = tree.getroot()
+baseroot.tag
+dir(baseroot)
+
+Reading DOCX
+Docx2txt
+pip install docx2txt
+
+import docx2txt
+docx2txt.process("examplefile.docx.docx")
+
+Reading HDF5
+Hierarchical Data Format
+pip install "dask[complete]
+import dask.dataframe as dd
+df_h5 = dd.read_hdf("examplefile.h5",key='*')
+type(df_h5)
+
+Reading RDF File
+Resource Description Framework
+pip install rdflib
+
+from rdflib.graph import Graph
+g = Graph()
+g.parse("examplefile.rdf")
+for s in g:
+    print(s)
+
+
+
